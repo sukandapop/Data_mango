@@ -1,7 +1,7 @@
 <?php
 require_once '../admin/db.php';
 
-// ดึงข้อมูลจากตาราง mangoes
+// ดึงข้อมูลจากตาราง mangoes สำหรับรายการทั้งหมด
 $query = "SELECT * FROM mangoes";
 $result = $conn->query($query);
 
@@ -56,7 +56,7 @@ if (!$result) {
             height: 250px;
             object-fit: contain;
             padding: 15px;
-            transition: transform 0.35s cubic-bezier(.34,1.56,.64,1);
+            transition: transform 0.35s cubic-bezier(.34, 1.56, .64, 1);
             will-change: transform;
             display: block;
         }
@@ -87,11 +87,13 @@ if (!$result) {
         <div class="mb-4 d-flex justify-content-center">
             <div class="input-group" style="max-width: 500px;">
                 <span class="input-group-text bg-white border-end-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#888" class="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11 6a5 5 0 1 1-1.001-9.999A5 5 0 0 1 11 6zm-1 0a4 4 0 1 0-8 0 4 4 0 0 0 8 0zm6.707 11.293-3.387-3.387A6.978 6.978 0 0 0 13 6a7 7 0 1 0-7 7 6.978 6.978 0 0 0 3.906-1.08l3.387 3.387a1 1 0 0 0 1.414-1.414z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#888" class="bi bi-search"
+                        viewBox="0 0 16 16">
+                        <path d="M11 6a5 5 0 1 1-1.001-9.999A5 5 0 0 1 11 6zm-1 0a4 4 0 1 0-8 0 4 4 0 0 0 8 0zm6.707 11.293-3.387-3.387A6.978 6.978 0 0 0 13 6a7 7 0 1 0-7 7 6.978 6.978 0 0 0 3.906-1.08l3.387 3.387a1 1 0 0 0 1.414-1.414z" />
                     </svg>
                 </span>
-                <input type="text" id="searchInput" class="form-control border-start-0" placeholder="ค้นหาสายพันธุ์มะม่วง" aria-label="ค้นหาสายพันธุ์มะม่วง">
+                <input type="text" id="searchInput" class="form-control border-start-0" placeholder="ค้นหาสายพันธุ์มะม่วง"
+                    aria-label="ค้นหาสายพันธุ์มะม่วง">
                 <select id="categorySelect" class="form-select ms-2" style="max-width:180px;">
                     <option value="">ทุกประเภท</option>
                     <option value="เชิงพาณิชย์">เชิงพาณิชย์</option>
@@ -102,14 +104,16 @@ if (!$result) {
         </div>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4" id="mangoList">
             <?php
+            // แสดงรายการมะม่วงทั้งหมด
+            $result->data_seek(0); // รีเซ็ต pointer เผื่อใช้ $result ซ้ำ
             while ($row = $result->fetch_assoc()) {
                 $img_file = isset($row['header_img']) ? basename($row['header_img']) : null;
-                $fruit_image = $img_file ? "../admin/uploads/{$img_file}" : null;
+                $fruit_image = $img_file ? "../uploads/{$img_file}" : null;
                 $name = isset($row['name_sci']) ? $row['name_sci'] : "ไม่ทราบชื่อ";
                 $category = isset($row['category']) ? $row['category'] : "ไม่ทราบประเภท";
                 $morph_fruit = isset($row['morph_fruit']) ? $row['morph_fruit'] : "ไม่มีข้อมูลลักษณะผล";
 
-                $abs_path = __DIR__ . "/../admin/uploads/" . $img_file;
+                $abs_path = __DIR__ . "/../uploads/" . $img_file;
 
                 echo "<div class='col mango-item' data-category='" . htmlspecialchars($category, ENT_QUOTES) . "'>
                     <a href='mango_detail.php?name=" . urlencode($name) . "' class='text-decoration-none text-dark'>
@@ -124,9 +128,7 @@ if (!$result) {
                 echo "      </div>
                             <div class='card-body'>
                                 <h5 class='card-title'>{$name}</h5>
-                                <p class='text-muted'>{$category}</p>
-                                <p class='fw-bold mb-1 mt-2'>ลักษณะผล</p>
-                                <p class='card-text'>{$morph_fruit}</p>
+                            
                             </div>
                         </div>
                     </a>
@@ -136,7 +138,7 @@ if (!$result) {
         </div>
     </div>
 
-    <?php include 'footer.php'; ?>
+   
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -158,4 +160,5 @@ if (!$result) {
         }
     </script>
 </body>
+
 </html>

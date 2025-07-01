@@ -109,7 +109,7 @@ if (!$mango) {
             <img src="../uploads/<?= htmlspecialchars(basename($mango['morph_flower'])) ?>" class="img-fluid mb-3" alt="ดอกมะม่วง" style="object-fit: cover; width: 100%; height: 200px;">
         </div>
     </div>
-    <a href="mango_varieties.php" class="btn btn-secondary mt-4">← กลับหน้ารวม</a>
+    <a href="index.php" class="btn btn-secondary mt-4">← กลับหน้ารวม</a>
 </div>
 
 </body>
