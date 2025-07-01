@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once 'db.php';
 
-    if (!isset($pdo)) {
+    if (!isset($conn) || $conn->connect_error) {
         die("ข้อผิดพลาด: ไม่สามารถเชื่อมต่อฐานข้อมูลได้");
     }
 
@@ -115,10 +115,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     unset($var); // ยกเลิกการอ้างอิงหลังจากวนลูป
 
     try {
-        $stmt = $pdo->prepare("INSERT INTO mangoes 
+        $stmt = $conn->prepare("INSERT INTO mangoes 
                 (name_sci, name_local, soil, planting_period, category, propagation, processing, header_img, morph_fruit, morph_tree, morph_leaf, morph_flower, morph_branch)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->execute([
+        $stmt->bind_param(
+            "sssssssssssss",
             $name_sci,
             $name_local,
             $soil,
@@ -132,7 +133,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $morph_leaf,
             $morph_flower,
             $morph_branch
-        ]);
+        );
+        $stmt->execute();
 
         header("Location: dashboard.php?success=1");
         exit;
@@ -535,8 +537,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     </div>
                                     
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="category" value="บริโภคครัวเรือน" id="other_category">
-                                        <label class="form-check-label" for="other_category">บริโภคครัวเรือน</label>
+                                        <input class="form-check-input" type="radio" name="category" value="ครัวเรือน" id="other_category">
+                                        <label class="form-check-label" for="other_category">ครัวเรือน</label>
                                     </div>
                                 </div>
                                 

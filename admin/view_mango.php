@@ -9,31 +9,28 @@ if (!isset($_GET['id'])) {
 
 $mango_id = $_GET['id'];
 
-try {
-    // เตรียมคำสั่ง SQL สำหรับดึงข้อมูลมะม่วง
-    $stmt = $pdo->prepare("SELECT * FROM mangoes WHERE id = ?");
-    $stmt->execute([$mango_id]);
-    $mango = $stmt->fetch(PDO::FETCH_ASSOC);
+// ใช้ MySQLi แทน PDO
+$stmt = $conn->prepare("SELECT * FROM mangoes WHERE id = ?");
+$stmt->bind_param("i", $mango_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$mango = $result->fetch_assoc();
 
-    // ตรวจสอบว่าพบข้อมูลหรือไม่
-    if (!$mango) {
-        header("Location: dashboard.php");
-        exit;
-    }
-
-    // ฟังก์ชันแปลงข้อมูล checkbox ที่เก็บเป็น CSV ให้เป็น array
-    function csv_to_array($csv) {
-        if (empty($csv)) return [];
-        return explode(',', $csv);
-    }
-
-    // แปลงข้อมูลการขยายพันธุ์และการแปรรูป
-    $propagation = csv_to_array($mango['propagation_method']);
-    $processing = csv_to_array($mango['processing_methods']);
-
-} catch (Exception $e) {
-    die("เกิดข้อผิดพลาด: " . $e->getMessage());
+// ตรวจสอบว่าพบข้อมูลหรือไม่
+if (!$mango) {
+    header("Location: dashboard.php");
+    exit;
 }
+
+// ฟังก์ชันแปลงข้อมูล checkbox ที่เก็บเป็น CSV ให้เป็น array
+function csv_to_array($csv) {
+    if (empty($csv)) return [];
+    return explode(',', $csv);
+}
+
+// แปลงข้อมูลการขยายพันธุ์และการแปรรูป
+$propagation = csv_to_array($mango['propagation'] ?? '');
+$processing = csv_to_array($mango['processing'] ?? '');
 ?>
 
 <!DOCTYPE html>
@@ -295,16 +292,16 @@ try {
             <p class="mb-0 lead"><?= htmlspecialchars($mango['name_sci']) ?></p>
         </div>
         
-        <div class="d-flex justify-content-start mb-4">
+        <!-- <div class="d-flex justify-content-start mb-4">
             <a href="dashboard.php" class="btn-back">
                 <i class="fas fa-arrow-left"></i> กลับสู่แดชบอร์ด
             </a>
-        </div>
+        </div> -->
         
         <!-- รูปภาพหลัก -->
         <div class="mb-5">
             <?php if (!empty($mango['header_img'])): ?>
-                <img src="<?= htmlspecialchars($mango['header_img']) ?>" class="header-image" alt="รูปภาพหลักของมะม่วง <?= htmlspecialchars($mango['name_local']) ?>">
+                <img src="/Data_mango/<?= htmlspecialchars($mango['header_img']) ?>" class="header-image" alt="รูปภาพหลักของมะม่วง <?= htmlspecialchars($mango['name_local']) ?>">
             <?php else: ?>
                 <div class="no-image">
                     <div class="text-center">
@@ -400,7 +397,7 @@ try {
                         <!-- ผล -->
                         <div class="morphology-item">
                             <?php if (!empty($mango['morph_fruit'])): ?>
-                                <img src="<?= htmlspecialchars($mango['morph_fruit']) ?>" class="morphology-img" alt="รูปภาพผลมะม่วง">
+                                <img src="/Data_mango/<?= htmlspecialchars($mango['morph_fruit']) ?>" class="morphology-img" alt="รูปภาพผลมะม่วง">
                             <?php else: ?>
                                 <div class="no-image" style="height: 180px;">
                                     <i class="fas fa-apple-alt"></i>
@@ -412,7 +409,7 @@ try {
                         <!-- ต้น -->
                         <div class="morphology-item">
                             <?php if (!empty($mango['morph_tree'])): ?>
-                                <img src="<?= htmlspecialchars($mango['morph_tree']) ?>" class="morphology-img" alt="รูปภาพต้นมะม่วง">
+                                <img src="/Data_mango/<?= htmlspecialchars($mango['morph_tree']) ?>" class="morphology-img" alt="รูปภาพต้นมะม่วง">
                             <?php else: ?>
                                 <div class="no-image" style="height: 180px;">
                                     <i class="fas fa-tree"></i>
@@ -424,7 +421,7 @@ try {
                         <!-- ใบ -->
                         <div class="morphology-item">
                             <?php if (!empty($mango['morph_leaf'])): ?>
-                                <img src="<?= htmlspecialchars($mango['morph_leaf']) ?>" class="morphology-img" alt="รูปภาพใบมะม่วง">
+                                <img src="/Data_mango/<?= htmlspecialchars($mango['morph_leaf']) ?>" class="morphology-img" alt="รูปภาพใบมะม่วง">
                             <?php else: ?>
                                 <div class="no-image" style="height: 180px;">
                                     <i class="fas fa-leaf"></i>
@@ -436,7 +433,7 @@ try {
                         <!-- ดอก -->
                         <div class="morphology-item">
                             <?php if (!empty($mango['morph_flower'])): ?>
-                                <img src="<?= htmlspecialchars($mango['morph_flower']) ?>" class="morphology-img" alt="รูปภาพดอกมะม่วง">
+                                <img src="/Data_mango/<?= htmlspecialchars($mango['morph_flower']) ?>" class="morphology-img" alt="รูปภาพดอกมะม่วง">
                             <?php else: ?>
                                 <div class="no-image" style="height: 180px;">
                                     <i class="fas fa-spa"></i>
@@ -448,7 +445,7 @@ try {
                         <!-- กิ่ง -->
                         <div class="morphology-item">
                             <?php if (!empty($mango['morph_branch'])): ?>
-                                <img src="<?= htmlspecialchars($mango['morph_branch']) ?>" class="morphology-img" alt="รูปภาพกิ่งมะม่วง">
+                                <img src="/Data_mango/<?= htmlspecialchars($mango['morph_branch']) ?>" class="morphology-img" alt="รูปภาพกิ่งมะม่วง">
                             <?php else: ?>
                                 <div class="no-image" style="height: 180px;">
                                     <i class="fas fa-tree"></i>

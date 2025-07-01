@@ -459,7 +459,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="view_mango.php" title="ข้อมูลมะม่วง">
+                        <a class="nav-link" href="mango_list.php" title="ข้อมูลมะม่วง">
                             <i class="fas fa-tree"></i>
                             <span class="d-none d-md-inline">ข้อมูลมะม่วง</span>
                         </a>
