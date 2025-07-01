@@ -5,6 +5,7 @@ $user = 'root';             // ชื่อผู้ใช้ฐานข้อ�
 $pass = '';                 // รหัสผ่าน (ถ้ามี)
 $charset = 'utf8mb4';
 
+
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 
 $options = [
