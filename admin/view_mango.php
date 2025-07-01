@@ -284,32 +284,20 @@ $processing = csv_to_array($mango['processing'] ?? '');
 </head>
 <body>
     <div class="container">
-        <div class="mango-header text-center position-relative">
-            <div class="header-icon">
+        <div class="mango-header text-center position-relative"
+             style="background-image: url('/Data_mango/<?= htmlspecialchars($mango['header_img']) ?>'); background-size: cover; background-position: center;">
+            <div class="header-overlay" style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(44,62,80,0.45);border-radius:var(--border-radius);"></div>
+            <div class="header-icon" style="position:relative;z-index:2;">
                 <i class="fas fa-mango"></i>
             </div>
-            <h1 class="mb-3"><?= htmlspecialchars($mango['name_local']) ?></h1>
-            <p class="mb-0 lead"><?= htmlspecialchars($mango['name_sci']) ?></p>
+            <h1 class="mb-3" style="position:relative;z-index:2;"><?= htmlspecialchars($mango['name_local']) ?></h1>
+            <p class="mb-0 lead" style="position:relative;z-index:2;"><?= htmlspecialchars($mango['name_sci']) ?></p>
         </div>
         
-        <!-- <div class="d-flex justify-content-start mb-4">
+        <div class="d-flex justify-content-start mb-4">
             <a href="dashboard.php" class="btn-back">
                 <i class="fas fa-arrow-left"></i> กลับสู่แดชบอร์ด
             </a>
-        </div> -->
-        
-        <!-- รูปภาพหลัก -->
-        <div class="mb-5">
-            <?php if (!empty($mango['header_img'])): ?>
-                <img src="/Data_mango/<?= htmlspecialchars($mango['header_img']) ?>" class="header-image" alt="รูปภาพหลักของมะม่วง <?= htmlspecialchars($mango['name_local']) ?>">
-            <?php else: ?>
-                <div class="no-image">
-                    <div class="text-center">
-                        <i class="fas fa-image"></i>
-                        <p>ไม่มีรูปภาพหลัก</p>
-                    </div>
-                </div>
-            <?php endif; ?>
         </div>
         
         <!-- ส่วนข้อมูลหลัก -->

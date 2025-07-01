@@ -694,7 +694,7 @@
     <nav class="d-block d-md-none fixed-bottom bg-white border-top shadow-sm" id="mobileNav">
         <div class="d-flex justify-content-around py-2">
             <a href="#" class="text-success text-center" title="แดชบอร์ด"><i class="fas fa-chart-line fa-lg"></i></a>
-            <a href="#" class="text-success text-center" title="ข้อมูลมะม่วง"><i class="fas fa-tree fa-lg"></i></a>
+            <a href="mango_list.php" class="text-success text-center" title="ข้อมูลมะม่วง"><i class="fas fa-tree fa-lg"></i></a>
             <a href="#" class="text-success text-center" title="ผู้ใช้งาน"><i class="fas fa-users fa-lg"></i></a>
             <a href="#" class="text-success text-center" title="การตั้งค่า"><i class="fas fa-cog fa-lg"></i></a>
             <a href="#" class="text-success text-center" title="ออกจากระบบ"><i class="fas fa-sign-out-alt fa-lg"></i></a>

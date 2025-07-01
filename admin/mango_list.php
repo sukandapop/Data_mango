@@ -94,7 +94,7 @@ $result = $conn->query($sql);
         
         .card-img-top {
             width: 100%;
-            height: 200px;
+            height: 220px;
             object-fit: cover;
             background: var(--light-bg);
             border-top-left-radius: var(--border-radius);
