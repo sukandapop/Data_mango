@@ -26,10 +26,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $soil = htmlspecialchars(trim($_POST['soil'] ?? ''), ENT_QUOTES, 'UTF-8');
     $planting_period = htmlspecialchars(trim($_POST['planting_period'] ?? ''), ENT_QUOTES, 'UTF-8');
 
-    // แปลง array ของ checkbox เป็น string คั่นด้วย comma
-    $category = isset($_POST['category']) ? implode(',', array_map('htmlspecialchars', $_POST['category'])) : '';
-    $propagation = isset($_POST['propagation']) ? implode(',', array_map('htmlspecialchars', $_POST['propagation'])) : '';
-    $processing = isset($_POST['processing']) ? implode(',', array_map('htmlspecialchars', $_POST['processing'])) : '';
+    // หมวดหมู่ (radio) รับเป็น string
+    $category = isset($_POST['category']) && $_POST['category'] !== ''
+        ? htmlspecialchars($_POST['category'], ENT_QUOTES, 'UTF-8')
+        : null;
+
+    // การขยายพันธุ์ (checkbox) รับเป็น array หรือ string
+    if (isset($_POST['propagation'])) {
+        if (is_array($_POST['propagation'])) {
+            $propagation = implode(',', array_map(function($v) {
+                return htmlspecialchars($v, ENT_QUOTES, 'UTF-8');
+            }, $_POST['propagation']));
+        } else {
+            $propagation = htmlspecialchars($_POST['propagation'], ENT_QUOTES, 'UTF-8');
+        }
+    } else {
+        $propagation = null;
+    }
+
+    // การแปรรูป (checkbox) รับเป็น array หรือ string
+    if (isset($_POST['processing'])) {
+        if (is_array($_POST['processing'])) {
+            $processing = implode(',', array_map(function($v) {
+                return htmlspecialchars($v, ENT_QUOTES, 'UTF-8');
+            }, $_POST['processing']));
+        } else {
+            $processing = htmlspecialchars($_POST['processing'], ENT_QUOTES, 'UTF-8');
+        }
+    } else {
+        $processing = null;
+    }
 
     $upload_dir = __DIR__ . '/../uploads/'; // กำหนดโฟลเดอร์อัปโหลดที่ถูกต้อง
     if (!is_dir($upload_dir)) {
