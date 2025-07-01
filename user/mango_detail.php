@@ -65,30 +65,24 @@ if (!$mango) {
         <!-- คอลัมน์ซ้าย -->
         <div class="col-md-4">
             <h2 class="mb-4"><?= htmlspecialchars($mango['name_sci']) ?></h2>
-            <img src="../admin/uploads/<?= htmlspecialchars(basename($mango['header_img'])) ?>" class="img-fluid mb-3" alt="<?= htmlspecialchars($mango['name_sci']) ?>" style="max-height: 400px;">
+            <img src="../uploads/<?= htmlspecialchars(basename($mango['header_img'])) ?>" class="img-fluid mb-3" alt="<?= htmlspecialchars($mango['name_sci']) ?>" style="max-height: 400px;">
         </div>
         <!-- คอลัมน์กลาง -->
         <div class="col-md-4">
             <h4>ข้อมูลทั่วไป</h4>
-            <p><strong>ชื่อวิทยาศาสตร์:</strong> <?= htmlspecialchars($mango['name_sci']) ?></p>
+            <p><strong>ชื่อวิทยาศาสตร์:</strong> <?= htmlspecialchars($mango['name_sci'] ?? '-') ?></p>
             <p><strong>ชื่อท้องถิ่น:</strong> <?= !empty($mango['name_local']) ? htmlspecialchars($mango['name_local']) : '-' ?></p>
-            <h4 class="mt-4">ลักษณะสัณฐานวิทยา</h4>
-            <p><strong>ลำต้น:</strong> <?= htmlspecialchars($mango['morphology_stem']) ?></p>
-            <p><strong>ผล:</strong> <?= htmlspecialchars($mango['morphology_fruit']) ?></p>
-            <p><strong>ใบ:</strong> <?= htmlspecialchars($mango['morphology_leaf']) ?></p>
-            <p><strong>ดอก:</strong> <?= htmlspecialchars($mango['flower_image']) ?></p>
-            <p><strong>กิ่ง:</strong> <?= htmlspecialchars($mango['branch_image']) ?></p>
             <h4>การเพาะปลูก</h4>
-            <p><strong>การขยายพันธุ์:</strong> <?= htmlspecialchars($mango['propagation_method']) ?></p>
-            <p><strong>ลักษณะดิน:</strong> <?= htmlspecialchars($mango['soil_characteristics']) ?></p>
-            <p><strong>ระยะเวลาเพาะปลูก:</strong> <?= htmlspecialchars($mango['planting_period']) ?></p>
+            <p><strong>การขยายพันธุ์:</strong> <?= isset($mango['propagation']) ? htmlspecialchars($mango['propagation']) : '-' ?></p>
+            <p><strong>ลักษณะดิน:</strong> <?= isset($mango['soil']) ? htmlspecialchars($mango['soil']) : '-' ?></p>
+            <p><strong>ระยะเวลาเพาะปลูก:</strong> <?= isset($mango['planting_period']) ? htmlspecialchars($mango['planting_period']) : '-' ?></p>
         </div>
         <!-- คอลัมน์ขวา -->
         <div class="col-md-4">
             <h4>การแปรรูป</h4>
-            <p><?= nl2br(htmlspecialchars($mango['processing_methods'])) ?></p>
+            <p><?= isset($mango['processing']) ? nl2br(htmlspecialchars($mango['processing'])) : '-' ?></p>
             <h4 class="mt-4">หมวดหมู่มะม่วง</h4>
-            <p><strong>ประเภท:</strong> <?= htmlspecialchars($mango['mango_category']) ?></p>
+            <p><strong>ประเภท:</strong> <?= isset($mango['category']) ? htmlspecialchars($mango['category']) : '-' ?></p>
         </div>
     </div>
 
@@ -96,27 +90,27 @@ if (!$mango) {
     <div class="row text-center">
         <div class="col-6 col-md-3 mb-3">
             <h6>ผล</h6>
-            <img src="../admin/uploads/<?= htmlspecialchars(basename($mango['fruit_image'])) ?>" class="img-fluid mb-3" alt="ผลมะม่วง" style="object-fit: cover; width: 100%; height: 200px;">
+            <img src="../uploads/<?= htmlspecialchars(basename($mango['morph_fruit'])) ?>" class="img-fluid mb-3" alt="ผลมะม่วง" style="object-fit: cover; width: 100%; height: 200px;">
         </div>
         <div class="col-6 col-md-3 mb-3">
             <h6>ต้น</h6>
-            <img src="../admin/uploads/<?= htmlspecialchars(basename($mango['tree_image'])) ?>" class="img-fluid mb-3" alt="ต้นมะม่วง" style="object-fit: cover; width: 100%; height: 200px;">
+            <img src="../uploads/<?= htmlspecialchars(basename($mango['morph_tree'])) ?>" class="img-fluid mb-3" alt="ต้นมะม่วง" style="object-fit: cover; width: 100%; height: 200px;">
         </div>
         <div class="col-6 col-md-3 mb-3">
             <h6>ใบ</h6>
-            <img src="../admin/uploads/<?= htmlspecialchars(basename($mango['leaf_image'])) ?>" class="img-fluid mb-3" alt="ใบมะม่วง" style="object-fit: cover; width: 100%; height: 200px;">
+            <img src="../uploads/<?= htmlspecialchars(basename($mango['morph_leaf'])) ?>" class="img-fluid mb-3" alt="ใบมะม่วง" style="object-fit: cover; width: 100%; height: 200px;">
         </div>
         <div class="col-6 col-md-3 mb-3">
             <h6>กิ่ง</h6>
-            <img src="../admin/uploads/<?= htmlspecialchars(basename($mango['branch_image'])) ?>" class="img-fluid mb-3" alt="กิ่งมะม่วง" style="object-fit: cover; width: 100%; height: 200px;">
+            <img src="../uploads/<?= htmlspecialchars(basename($mango['morph_branch'])) ?>" class="img-fluid mb-3" alt="กิ่งมะม่วง" style="object-fit: cover; width: 100%; height: 200px;">
         </div>
         <div class="col-6 col-md-3 mb-3">
             <h6>ดอก</h6>
-            <img src="../admin/uploads/<?= htmlspecialchars(basename($mango['flower_image'])) ?>" class="img-fluid mb-3" alt="ดอกมะม่วง" style="object-fit: cover; width: 100%; height: 200px;">
+            <img src="../uploads/<?= htmlspecialchars(basename($mango['morph_flower'])) ?>" class="img-fluid mb-3" alt="ดอกมะม่วง" style="object-fit: cover; width: 100%; height: 200px;">
         </div>
     </div>
-    <a href="mango_varieties.php" class="btn btn-secondary mt-4">← กลับหน้ารวม</a>
+    <a href="index.php" class="btn btn-secondary mt-4">← กลับหน้ารวม</a>
 </div>
-<?php include 'footer.php'; ?>
+
 </body>
 </html>
