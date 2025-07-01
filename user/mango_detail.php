@@ -2,14 +2,14 @@
 require_once '../admin/db.php';
 
 if (!isset($_GET['name'])) {
-    header('Location: mango_varieties.php');
+    header('Location: mangoes.php');
     exit;
 }
 
 $name = $_GET['name'];
 
 // ดึงข้อมูลมะม่วงจากฐานข้อมูล
-$stmt = $conn->prepare("SELECT * FROM mango_varieties WHERE mango_name = ?");
+$stmt = $conn->prepare("SELECT * FROM mangoes WHERE mango_name = ?");
 $stmt->bind_param("s", $name);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -161,7 +161,7 @@ if (!$mango) {
             <img src="../admin/uploads/<?= htmlspecialchars(basename($mango['flower_image'])) ?>" class="img-fluid mb-3" alt="ดอกมะม่วง" style="object-fit: cover; width: 100%; height: 200px;">
         </div>
     </div>
-    <a href="mango_varieties.php" class="btn btn-secondary mt-4">← กลับหน้ารวม</a>
+    <a href="mangoes.php" class="btn btn-secondary mt-4">← กลับหน้ารวม</a>
 </div>
 <?php include 'footer.php'; ?>
 </body>
