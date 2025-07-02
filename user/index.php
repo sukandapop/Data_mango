@@ -107,7 +107,7 @@ if (!$result) {
             // แสดงรายการมะม่วงทั้งหมด
             $result->data_seek(0); // รีเซ็ต pointer เผื่อใช้ $result ซ้ำ
             while ($row = $result->fetch_assoc()) {
-                $img_file = isset($row['header_img']) ? basename($row['header_img']) : null;
+                $img_file = isset($row['morph_fruit']) ? basename($row['morph_fruit']) : null;
                 $fruit_image = $img_file ? "../uploads/{$img_file}" : null;
                 $name = isset($row['name_sci']) ? $row['name_sci'] : "ไม่ทราบชื่อ";
                 $category = isset($row['category']) ? $row['category'] : "ไม่ทราบประเภท";
