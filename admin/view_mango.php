@@ -152,7 +152,7 @@ $processing = csv_to_array($mango['processing'] ?? '');
         
         .morphology-img {
             width: 100%;
-            height: 180px;
+            height: 210px;
             object-fit: cover;
             border-radius: 10px;
             box-shadow: var(--shadow-sm);

@@ -267,7 +267,7 @@
         
         .image-preview {
             width: 100%;
-            height: 180px;
+            height: 210px;
             border: 2px dashed #ddd;
             border-radius: 10px;
             display: flex;
